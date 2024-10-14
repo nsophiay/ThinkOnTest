@@ -19,9 +19,19 @@ public class UserRepository {
 		this.allUsers = allUsers;
 	}
 	
+	// Get specific user
+	public User getSpecificUser(String username) {
+		return allUsers.containsKey(username) ? allUsers.get(username) : null;
+	}
+	
 	// Add user
 	public void addUser(User user) {
 		allUsers.put(user.getUsername(), user);
+	}
+	
+	// Remove user
+	public boolean removeUser(String username) {
+		return allUsers.remove(username) != null ? true : false;
 	}
 
 }

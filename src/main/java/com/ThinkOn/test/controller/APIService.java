@@ -19,16 +19,8 @@ public class APIService {
 	@GetMapping("/{username}") // List a single user
 	public String getUser(@PathVariable String username) {
 		
-		User requestedUser = users.getAllUsers().get(username);
-		
-		// Check if user exists
-		if(requestedUser != null) {
-			// If so, return the requested user
-			return requestedUser.toString();
-		}
-		else {
-			return "Cannot find user " + username;
-		}
+		User requestedUser = users.getSpecificUser(username);
+		return requestedUser != null ? requestedUser.toString() : "Cannot find user " + username;
 		
 	}
 	
@@ -39,7 +31,7 @@ public class APIService {
 	
 	@PostMapping // Create a user
 	public String createUser(@RequestBody User user) {
-		this.users.getAllUsers().put(user.getUsername(), user);
+		this.users.addUser(user);
 		return "Successfully created user " + user.getUsername();
 	}
 	
@@ -55,7 +47,7 @@ public class APIService {
 	
 	@DeleteMapping("/{username}") // Delete a user
 	public String deleteUser(@PathVariable String username) {
-		return users.getAllUsers().remove(username) != null ? "Successfully deleted user" : "Could not find user " + username;
+		return users.removeUser(username) ? "Successfully deleted user" : "Could not find user " + username;
 	}
 	
 
