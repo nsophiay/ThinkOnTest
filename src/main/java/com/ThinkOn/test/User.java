@@ -1,9 +1,16 @@
 package com.ThinkOn.test;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "USERS")
 public class User {
 	
 	// Class attributes
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String username;
+	
 	private String firstName;
 	private String lastName;
 	private String email;
