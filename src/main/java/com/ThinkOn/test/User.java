@@ -1,8 +1,5 @@
 package com.ThinkOn.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 	
 	// Class attributes
@@ -11,8 +8,6 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phone;
-	
-	private List<User> users = new ArrayList<>();
 
 	// Constructors
 	public User() {
@@ -25,8 +20,6 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
-		
-		users.add(this);
 	}
 
 	// Getters and setters
@@ -70,12 +63,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phone=" + phone + "]";
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 
 }

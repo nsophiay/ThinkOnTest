@@ -1,42 +1,59 @@
 package com.ThinkOn.test.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
 
 import com.ThinkOn.test.User;
+import com.ThinkOn.test.UserRepository;
 
 @RestController
 @RequestMapping("/users")
 public class APIService {
 	
-	User user;
+	private UserRepository users;
+	
+	public APIService() {
+		users = new UserRepository();
+	}
 
-	@GetMapping("/{username}")
-	public User getUser(String username) {
-		return user;
+	@GetMapping("/{username}") // List a single user
+	public String getUser(@PathVariable String username) {
+		
+		User requestedUser = users.getAllUsers().get(username);
+		
+		// Check if user exists
+		if(requestedUser != null) {
+			// If so, return the requested user
+			return requestedUser.toString();
+		}
+		else {
+			return "Cannot find user " + username;
+		}
+		
 	}
 	
-	@GetMapping
-	public List<User> getAllUsers() {
-		return user.getUsers();
+	@GetMapping // List all users
+	public HashMap<String, User> getUsers(String username) {
+		return users.getAllUsers();
 	}
 	
-	@PostMapping
+	@PostMapping // Create a user
 	public String createUser(@RequestBody User user) {
-		this.user = user;
+		this.users.getAllUsers().put(user.getUsername(), user);
 		return "Successfully created user " + user.getUsername();
 	}
 	
-	@PutMapping
+	@PutMapping // Update a user
 	public String updateUser(@RequestBody User user) {
-		this.user = user;
+		users.getAllUsers().replace(user.getUsername(), user);
 		return "Successfully updated user " + user.getUsername();
 	}
 	
-	@DeleteMapping("/{username}")
+	@DeleteMapping("{username}") // Delete a user
 	public String deleteUser(String username) {
-		this.user = null;
+		users.getAllUsers().remove(username);
 		return "Successfully deleted user";
 	}
 	
