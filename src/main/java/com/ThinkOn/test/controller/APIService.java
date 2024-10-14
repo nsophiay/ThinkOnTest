@@ -1,8 +1,6 @@
 package com.ThinkOn.test.controller;
 
 import java.util.HashMap;
-import java.util.Set;
-
 import org.springframework.web.bind.annotation.*;
 
 import com.ThinkOn.test.User;
@@ -52,7 +50,7 @@ public class APIService {
 	}
 	
 	@DeleteMapping("{username}") // Delete a user
-	public String deleteUser(String username) {
+	public String deleteUser(@PathVariable String username) {
 		users.getAllUsers().remove(username);
 		return "Successfully deleted user";
 	}

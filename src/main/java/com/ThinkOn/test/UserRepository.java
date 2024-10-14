@@ -4,12 +4,13 @@ import java.util.HashMap;
 
 public class UserRepository {
 	
-	private HashMap<String, User> allUsers = new HashMap<String, User>();
+	private HashMap<String, User> allUsers = new HashMap<String, User>(); // Use HashMap to store users for ease of access
 
 	public UserRepository() {
-		// TODO Auto-generated constructor stub
+		// Empty
 	}
 
+	// Getters and setters
 	public HashMap<String, User> getAllUsers() {
 		return allUsers;
 	}
@@ -18,6 +19,7 @@ public class UserRepository {
 		this.allUsers = allUsers;
 	}
 	
+	// Add user
 	public void addUser(User user) {
 		allUsers.put(user.getUsername(), user);
 	}
