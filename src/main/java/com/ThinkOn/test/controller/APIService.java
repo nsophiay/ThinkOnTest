@@ -45,14 +45,17 @@ public class APIService {
 	
 	@PutMapping // Update a user
 	public String updateUser(@RequestBody User user) {
-		users.getAllUsers().replace(user.getUsername(), user);
+		HashMap<String, User> listOfUsers = users.getAllUsers();
+		
+		// Check if user exists before attempting to update
+		if (listOfUsers.containsKey(user.getUsername())) listOfUsers.replace(user.getUsername(), user);
+		else return "Could not find user " + user.getUsername();
 		return "Successfully updated user " + user.getUsername();
 	}
 	
-	@DeleteMapping("{username}") // Delete a user
+	@DeleteMapping("/{username}") // Delete a user
 	public String deleteUser(@PathVariable String username) {
-		users.getAllUsers().remove(username);
-		return "Successfully deleted user";
+		return users.getAllUsers().remove(username) != null ? "Successfully deleted user" : "Could not find user " + username;
 	}
 	
 
